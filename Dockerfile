@@ -22,7 +22,12 @@
 #
 
 FROM python:3.9.1-slim-buster
-LABEL maintainer="grdryn <gerard@ryan.lt>"
+LABEL org.opencontainers.image.authors="grdryn <gerard@ryan.lt>" \
+      org.opencontainers.image.title="heudiconv ChRIS Plugin" \
+      org.opencontainers.image.description="A ChRIS plugin that..."
+
+ADD https://github.com/rordenlab/dcm2niix/releases/download/v1.0.20220720/dcm2niix_lnx.zip /tmp/dcm2niix_lnx.zip
+RUN apt-get -y update && apt-get install -y unzip && unzip /tmp/dcm2niix_lnx.zip -d /usr/local/bin/ && apt-get remove -y unzip
 
 WORKDIR /usr/local/src
 
@@ -32,4 +37,4 @@ RUN pip install -r requirements.txt
 COPY . .
 RUN pip install .
 
-CMD ["heudiconv", "--help"]
+CMD ["pl-heudiconv", "--help"]
