@@ -17,7 +17,7 @@ pl-heudiconv
 Abstract
 --------
 
-An app to ...
+An app to convert ...
 
 
 Description
@@ -49,24 +49,24 @@ Arguments
 
     [-h] [--help]
     If specified, show help message and exit.
-    
+
     [--json]
     If specified, show json representation of app and exit.
-    
+
     [--man]
     If specified, print (this) man page and exit.
 
     [--meta]
     If specified, print plugin meta data and exit.
-    
-    [--savejson <DIR>] 
-    If specified, save json representation file to DIR and exit. 
-    
+
+    [--savejson <DIR>]
+    If specified, save json representation file to DIR and exit.
+
     [-v <level>] [--verbosity <level>]
     Verbosity level for app. Not used currently.
-    
+
     [--version]
-    If specified, print version number and exit. 
+    If specified, print version number and exit.
 
 
 Getting inline help is:
