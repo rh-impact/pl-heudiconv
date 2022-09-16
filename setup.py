@@ -1,7 +1,7 @@
 from os import path
 from setuptools import setup
 
-with open(path.join(path.dirname(path.abspath(__file__)), 'README.rst')) as f:
+with open(path.join(path.dirname(path.abspath(__file__)), 'README.adoc')) as f:
     readme = f.read()
 
 setup(
