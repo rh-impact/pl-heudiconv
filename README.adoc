@@ -3,11 +3,9 @@
 [%autowidth, cols="1,1,1", frame=none, grid=none]
 |===
 a|
-image::https://img.shields.io/docker/v/fnndsc/pl-heudiconv?sort=semver[https://hub.docker.com/r/fnndsc/pl-heudiconv]
+image::https://img.shields.io/github/license/rh-impact/pl-heudiconv[https://github.com/rh-impact/pl-heudiconv/blob/main/LICENSE]
 a|
-image::https://img.shields.io/github/license/fnndsc/pl-heudiconv[https://github.com/FNNDSC/pl-heudiconv/blob/main/LICENSE]
-a|
-image::https://github.com/FNNDSC/pl-heudiconv/actions/workflows/ci.yml/badge.svg[https://github.com/FNNDSC/pl-heudiconv/actions/workflows/ci.yml]
+image::https://github.com/rh-impact/pl-heudiconv/actions/workflows/ci.yml/badge.svg[https://github.com/rh-impact/pl-heudiconv/actions/workflows/ci.yml]
 |===
 
 ## Abstract
@@ -24,7 +22,7 @@ image::https://ipfs.babymri.org/ipfs/QmaQM9dUAYFjLVn3PpNTrpbKVavvSTxNLE5BocRCW1U
 
 ## Local Usage
 
-    docker run --rm fnndsc/pl-heudiconv heudiconv
+    docker run --rm quay.io/rh-impact/pl-heudiconv pl-heudiconv
         [-h|--help]
         [--json] [--man] [--meta]
         [--savejson <DIR>]
@@ -59,7 +57,7 @@ image::https://ipfs.babymri.org/ipfs/QmaQM9dUAYFjLVn3PpNTrpbKVavvSTxNLE5BocRCW1U
 
 Getting inline help is:
 
-    docker run --rm fnndsc/pl-heudiconv heudiconv --man
+    docker run --rm quay.io/rh-impact/pl-heudiconv pl-heudiconv --man
 
 ### Run
 
@@ -67,7 +65,7 @@ You need to specify input and output directories using the `-v` flag to `docker 
 
     docker run --rm -u $(id -u)                             \
         -v $(pwd)/in:/incoming -v $(pwd)/out:/outgoing      \
-        fnndsc/pl-heudiconv heudiconv                        \
+        quay.io/rh-impact/pl-heudiconv pl-heudiconv                        \
         /incoming /outgoing
 
 
