@@ -8,23 +8,25 @@
 #                        dev@babyMRI.org
 #
 
+import subprocess
+
 from chrisapp.base import ChrisApp
 
 
 Gstr_title = r"""
- _                    _ _                      
-| |                  | (_)                     
+ _                    _ _
+| |                  | (_)
 | |__   ___ _   _  __| |_  ___ ___  _ ____   __
 | '_ \ / _ \ | | |/ _` | |/ __/ _ \| '_ \ \ / /
-| | | |  __/ |_| | (_| | | (_| (_) | | | \ V / 
-|_| |_|\___|\__,_|\__,_|_|\___\___/|_| |_|\_/  
-                                               
-                                               
+| | | |  __/ |_| | (_| | | (_| (_) | | | \ V /
+|_| |_|\___|\__,_|\__,_|_|\___\___/|_| |_|\_/
+
+
 """
 
 Gstr_synopsis = """
 
-(Edit this in-line help for app specifics. At a minimum, the 
+(Edit this in-line help for app specifics. At a minimum, the
 flags below are supported -- in the case of DS apps, both
 positional arguments <inputDir> and <outputDir>; for FS and TS apps
 only <outputDir> -- and similarly for <in> <out> directories
@@ -36,7 +38,7 @@ where necessary.)
 
     SYNOPSIS
 
-        docker run --rm fnndsc/pl-heudiconv heudiconv                     \\
+        docker run --rm rh-impact/pl-heudiconv pl-heudiconv             \\
             [-h] [--help]                                               \\
             [--json]                                                    \\
             [--man]                                                     \\
@@ -45,7 +47,7 @@ where necessary.)
             [-v <level>] [--verbosity <level>]                          \\
             [--version]                                                 \\
             <inputDir>                                                  \\
-            <outputDir> 
+            <outputDir>
 
     BRIEF EXAMPLE
 
@@ -53,7 +55,7 @@ where necessary.)
 
             docker run --rm -u $(id -u)                             \
                 -v $(pwd)/in:/incoming -v $(pwd)/out:/outgoing      \
-                fnndsc/pl-heudiconv heudiconv                        \
+                rh-impact/pl-heudiconv pl-heudiconv                 \
                 /incoming /outgoing
 
     DESCRIPTION
@@ -64,24 +66,24 @@ where necessary.)
 
         [-h] [--help]
         If specified, show help message and exit.
-        
+
         [--json]
         If specified, show json representation of app and exit.
-        
+
         [--man]
         If specified, print (this) man page and exit.
 
         [--meta]
         If specified, print plugin meta data and exit.
-        
-        [--savejson <DIR>] 
-        If specified, save json representation file to DIR and exit. 
-        
+
+        [--savejson <DIR>]
+        If specified, save json representation file to DIR and exit.
+
         [-v <level>] [--verbosity <level>]
         Verbosity level for app. Not used currently.
-        
+
         [--version]
-        If specified, print version number and exit. 
+        If specified, print version number and exit.
 """
 
 
@@ -124,8 +126,20 @@ class Heudiconv(ChrisApp):
         """
         Define the code to be run by this plugin app.
         """
+
+        cmd = (
+            '/usr/local/bin/heudiconv',
+            '--files', options.inputdir,
+            '-f', 'reproin',
+            '-o', options.outputdir,
+            '--bids'
+        )
         print(Gstr_title)
         print('Version: %s' % self.get_version())
+
+        print(f'Command: {" ".join(map(str, cmd))}')
+
+        subprocess.run(cmd, check=True)
 
     def show_man_page(self):
         """

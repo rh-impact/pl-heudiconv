@@ -1,4 +1,4 @@
-from heudiconv.heudiconv import Heudiconv
+from pl_heudiconv.heudiconv import Heudiconv
 
 
 def main():
