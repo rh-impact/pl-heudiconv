@@ -1,8 +1,6 @@
-
-from unittest import TestCase
-from unittest import mock
-from heudiconv.heudiconv import Heudiconv
-
+from unittest import TestCase, mock
+from pl_heudiconv.heudiconv import Heudiconv
+import base64, os, shutil, tempfile
 
 class HeudiconvTests(TestCase):
     """
@@ -10,24 +8,27 @@ class HeudiconvTests(TestCase):
     """
     def setUp(self):
         self.app = Heudiconv()
+        self.inputdir = os.path.join(os.getcwd(), 'pl_heudiconv/tests/mock/inputdir')
+        self.outputdir = tempfile.mkdtemp()
 
     def test_run(self):
         """
         Test the run code.
         """
         args = []
-        if self.app.TYPE == 'ds':
-            args.append('inputdir') # you may want to change this inputdir mock
-        args.append('outputdir')  # you may want to change this outputdir mock
-
-        # you may want to add more of your custom defined optional arguments to test
-        # your app with
-        # eg.
-        # args.append('--custom-int')
-        # args.append(10)
+        args.append(self.inputdir)
+        args.append(self.outputdir)
 
         options = self.app.parse_args(args)
+        self.assertEqual(options.inputdir, self.inputdir)
+        self.assertEqual(options.outputdir, self.outputdir)
+
         self.app.run(options)
 
-        # write your own assertions
-        self.assertEqual(options.outputdir, 'outputdir')
+        expected_files = ['CHANGES', 'README', 'dataset_description.json', 'participants.json', 'participants.tsv', 'scans.json']
+        for expected in expected_files:
+            self.assertTrue(os.path.exists(os.path.join(
+                self.outputdir, 'Knee/(R)/', expected)))
+
+    def tearDown(self):
+        shutil.rmtree(self.outputdir)
