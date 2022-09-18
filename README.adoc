@@ -1,0 +1,86 @@
+# HeuDiConv
+
+[%autowidth, cols="1,1,1", frame=none, grid=none]
+|===
+a|
+image::https://img.shields.io/github/license/rh-impact/pl-heudiconv[https://github.com/rh-impact/pl-heudiconv/blob/main/LICENSE]
+a|
+image::https://github.com/rh-impact/pl-heudiconv/actions/workflows/ci.yml/badge.svg[https://github.com/rh-impact/pl-heudiconv/actions/workflows/ci.yml]
+|===
+
+## Abstract
+
+`pl-heudiconv` is a link:https://chrisproject.org/[_ChRIS^] _ds_ plugin that organizes brain imaging data into structured directory layouts.
+
+
+## Installation
+
+`pl-heudiconv` is a link:https://chrisproject.org/[_ChRIS^] plugin_, meaning that it can run either from within _ChRIS_ or from the command-line.
+
+image::https://ipfs.babymri.org/ipfs/QmaQM9dUAYFjLVn3PpNTrpbKVavvSTxNLE5BocRCW1UoXG/light.png[link=https://chrisstore.co/plugin/pl-heudiconv]
+
+
+## Local Usage
+
+    docker run --rm quay.io/rh-impact/pl-heudiconv pl-heudiconv
+        [-h|--help]
+        [--json] [--man] [--meta]
+        [--savejson <DIR>]
+        [-v|--verbosity <level>]
+        [--version]
+        <inputDir> <outputDir>
+
+
+### Arguments
+
+    [-h] [--help]
+    If specified, show help message and exit.
+
+    [--json]
+    If specified, show json representation of app and exit.
+
+    [--man]
+    If specified, print (this) man page and exit.
+
+    [--meta]
+    If specified, print plugin meta data and exit.
+
+    [--savejson <DIR>]
+    If specified, save json representation file to DIR and exit.
+
+    [-v <level>] [--verbosity <level>]
+    Verbosity level for app. Not used currently.
+
+    [--version]
+    If specified, print version number and exit.
+
+
+Getting inline help is:
+
+    docker run --rm quay.io/rh-impact/pl-heudiconv pl-heudiconv --man
+
+### Run
+
+You need to specify input and output directories using the `-v` flag to `docker run`.
+
+    docker run --rm -u $(id -u)                             \
+        -v $(pwd)/in:/incoming -v $(pwd)/out:/outgoing      \
+        quay.io/rh-impact/pl-heudiconv pl-heudiconv                        \
+        /incoming /outgoing
+
+
+## Development
+
+Build the Docker container:
+
+    docker build -t local/pl-heudiconv .
+
+Run unit tests:
+
+    docker run --rm local/pl-heudiconv nosetests
+
+## Examples
+
+Put some examples here!
+
+image::https://raw.githubusercontent.com/FNNDSC/cookiecutter-chrisapp/master/doc/assets/badge/light.png[link=https://chrisstore.co]
