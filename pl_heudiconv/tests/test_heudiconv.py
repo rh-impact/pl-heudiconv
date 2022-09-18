@@ -18,6 +18,7 @@ class HeudiconvTests(TestCase):
         args = []
         args.append(self.inputdir)
         args.append(self.outputdir)
+        args.append('--bids')
 
         options = self.app.parse_args(args)
         self.assertEqual(options.inputdir, self.inputdir)

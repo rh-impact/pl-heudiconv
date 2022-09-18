@@ -27,7 +27,9 @@ LABEL org.opencontainers.image.authors="grdryn <gerard@ryan.lt>" \
       org.opencontainers.image.description="A ChRIS plugin that..."
 
 ADD https://github.com/rordenlab/dcm2niix/releases/download/v1.0.20220720/dcm2niix_lnx.zip /tmp/dcm2niix_lnx.zip
-RUN apt-get -y update && apt-get install -y unzip && unzip /tmp/dcm2niix_lnx.zip -d /usr/local/bin/ && apt-get remove -y unzip
+RUN apt-get -y update && \
+    apt-get install -y unzip git git-annex && \
+    unzip /tmp/dcm2niix_lnx.zip -d /usr/local/bin/
 
 WORKDIR /usr/local/src
 
