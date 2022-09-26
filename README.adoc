@@ -18,7 +18,7 @@ This `pl-heudiconv` plugin is a wrapper that makes the `heudiconf` CLI tool avai
 
 When running the `pl-heudiconv` plugin, you must specify two directories:
 
-* The _input directory_, where the brain imaging data is stored in DICOM files (with the `.dcm` file extension).
+* The _input directory_, where the brain imaging data is stored in DICOM files.
 * The _output directory_, where the structured directory layouts are generated.
 
 Both of these directories must already exist before you run the plugin.
@@ -27,8 +27,6 @@ The documentation for the original `heudiconv` CLI tool is available from the fo
 https://heudiconv.readthedocs.io/en/latest/index.html
 
 NOTE: In the original `heudiconv` CLI tool, the input and output directories are _named_ arguments, but link:https://chrisproject.org/[_ChRIS_^] plugins expect them to be _positional_ arguments. As a result of this translation, some other arguments might be missing, or structured or named differently.
-
-NOTE: The `pl-heudiconv` plugin does _not_ yet support the `--bids` argument, so you cannot currently use this plugin to convert the DICOM data to BIDS format.
 
 
 ## Installation
