@@ -10,77 +10,115 @@ image::https://github.com/rh-impact/pl-heudiconv/actions/workflows/ci.yml/badge.
 
 ## Abstract
 
-`pl-heudiconv` is a link:https://chrisproject.org/[_ChRIS^] _ds_ plugin that organizes brain imaging data into structured directory layouts.
+`pl-heudiconv` is a link:https://chrisproject.org/[_ChRIS_^] ds plugin that organizes brain imaging data into structured directory layouts.
+
+## Description
+The original `heudiconv` CLI tool is a flexible DICOM converter for organizing brain imaging data into structured directory layouts.
+This `pl-heudiconv` plugin is a wrapper that makes the `heudiconf` CLI tool available as a link:https://chrisproject.org/[_ChRIS_^] plugin.
+
+When running the `pl-heudiconv` plugin, you must specify two directories:
+
+* The _input directory_, where the brain imaging data is stored in DICOM files.
+* The _output directory_, where the structured directory layouts are generated.
+
+Both of these directories must already exist before you run the plugin.
+
+The documentation for the original `heudiconv` CLI tool is available from the following website:
+https://heudiconv.readthedocs.io/en/latest/index.html
+
+NOTE: In the original `heudiconv` CLI tool, the input and output directories are _named_ arguments, but link:https://chrisproject.org/[_ChRIS_^] plugins expect them to be _positional_ arguments. As a result of this translation, some other arguments might be missing, or structured or named differently.
 
 
 ## Installation
 
-`pl-heudiconv` is a link:https://chrisproject.org/[_ChRIS^] plugin_, meaning that it can run either from within _ChRIS_ or from the command-line.
+`pl-heudiconv` is a link:https://chrisproject.org/[_ChRIS_^] plugin, meaning that it can run either from within _ChRIS_ or from the command-line.
 
 image::https://ipfs.babymri.org/ipfs/QmaQM9dUAYFjLVn3PpNTrpbKVavvSTxNLE5BocRCW1UoXG/light.png[link=https://chrisstore.co/plugin/pl-heudiconv]
 
 
 ## Local Usage
 
-    docker run --rm quay.io/rh-impact/pl-heudiconv pl-heudiconv
+[subs=+quotes]
+....
+podman run --rm
+    -v _<path_to_input_dir_containing_DICOM_files>_:/incoming:z
+    -v _<path_to_output_dir>_:/outgoing:z
+    quay.io/rh-impact/pl-heudiconv pl-heudiconv
         [-h|--help]
         [--json] [--man] [--meta]
-        [--savejson <DIR>]
-        [-v|--verbosity <level>]
+        [--savejson _<DIR>_]
+        [-v|--verbosity _<level>_]
         [--version]
-        <inputDir> <outputDir>
+        /incoming /outgoing
+....
 
 
 ### Arguments
 
-    [-h] [--help]
-    If specified, show help message and exit.
+[subs=+quotes]
+....
+[-h] [--help]
+If specified, show help message and exit.
 
-    [--json]
-    If specified, show json representation of app and exit.
+[--json]
+If specified, show json representation of app and exit.
 
-    [--man]
-    If specified, print (this) man page and exit.
+[--man]
+If specified, print the man page and exit.
 
-    [--meta]
-    If specified, print plugin meta data and exit.
+[--meta]
+If specified, print plugin meta data and exit.
 
-    [--savejson <DIR>]
-    If specified, save json representation file to DIR and exit.
+[--savejson _<DIR>_]
+If specified, save json representation file to _DIR_ and exit.
 
-    [-v <level>] [--verbosity <level>]
-    Verbosity level for app. Not used currently.
+[-v _<level>_] [--verbosity _<level>_]
+Verbosity level for app. Not used currently.
 
-    [--version]
-    If specified, print version number and exit.
+[--version]
+If specified, print version number and exit.
+....
 
 
-Getting inline help is:
+To show inline help, run the following command:
 
-    docker run --rm quay.io/rh-impact/pl-heudiconv pl-heudiconv --man
+....
+podman run --rm quay.io/rh-impact/pl-heudiconv pl-heudiconv --man
+....
 
 ### Run
 
-You need to specify input and output directories using the `-v` flag to `docker run`.
+You must specify input and output directories using the `-v` flag in the `podman run` command, as follows:
 
-    docker run --rm -u $(id -u)                             \
-        -v $(pwd)/in:/incoming -v $(pwd)/out:/outgoing      \
-        quay.io/rh-impact/pl-heudiconv pl-heudiconv                        \
+[subs=+quotes]
+....
+podman run --rm                              \
+    -v _<path_to_input_dir_containing_DICOM_files>_:/incoming    \
+    -v _<path_to_output_dir>_:/outgoing      \
+    quay.io/rh-impact/pl-heudiconv pl-heudiconv                        \
         /incoming /outgoing
+....
 
 
 ## Development
 
 Build the Docker container:
 
-    docker build -t local/pl-heudiconv .
+    podman build -t local/pl-heudiconv .
 
 Run unit tests:
 
-    docker run --rm local/pl-heudiconv nosetests
+    podman run --rm local/pl-heudiconv nosetests
 
 ## Examples
 
-Put some examples here!
+    podman run --rm -v ./my_input:/incoming:z -v ./my_output:/outgoing:z \
+        quay.io/rh-impact/pl-heudiconv pl-heudiconv /incoming /outgoing
+
+    podman run --rm -v /home/my_name/my_project/my_input:/in:z \
+        -v /home/my_name/my_project/my_output/heudiconv_output:/out:z \
+        quay.io/rh-impact/pl-heudiconv pl-heudiconv /in /out
+
+
 
 image::https://raw.githubusercontent.com/FNNDSC/cookiecutter-chrisapp/master/doc/assets/badge/light.png[link=https://chrisstore.co]
