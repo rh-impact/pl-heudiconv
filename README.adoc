@@ -119,6 +119,49 @@ Run unit tests:
         -v /home/my_name/my_project/my_output/heudiconv_output:/out:z \
         quay.io/rh-impact/pl-heudiconv pl-heudiconv /in /out
 
+### Example output
+
+
+[subs=+quotes]
+....
+$ *tree my_output/*
+my_output/
+└── MR
+    └── Brain
+        └── w
+            └── o Contrast
+                ├── CHANGES
+                ├── dataset_description.json
+                ├── participants.json
+                ├── participants.tsv
+                ├── README
+                └── scans.json
+
+4 directories, 6 files
+....
+
+[subs=+quotes]
+....
+$ *tree heudiconv_output*
+heudiconv_output
+└── Knee
+    └── (R)
+        ├── CHANGES
+        ├── dataset_description.json
+        ├── participants.json
+        ├── participants.tsv
+        ├── README
+        └── scans.json
+
+2 directories, 6 files
+....
+
+## Troubleshooting
+
+As stated in the original `heudiconv` documentation, "_The heuristic file controls how information about the DICOMs is used to convert to a file system layout ... However, there is a large variety of data out there, and not all DICOMs will be covered by the existing heuristics._"
+For more information about `heudiconv` heuristics, see link:https://heudiconv.readthedocs.io/en/latest/heuristics.html[Heuristic].
+
+If you do not get the expected output when using this plugin, but you do get the expected output when using the original `heudiconv` tool independently, please log an issue link:https://github.com/rh-impact/pl-heudiconv/issues[here].
 
 
 image::https://raw.githubusercontent.com/FNNDSC/cookiecutter-chrisapp/master/doc/assets/badge/light.png[link=https://chrisstore.co]
