@@ -114,14 +114,10 @@ Run unit tests:
 
 ## Examples
 
+### Example 1
+
     podman run --rm -v ./my_input:/incoming:z -v ./my_output:/outgoing:z \
         quay.io/rh-impact/pl-heudiconv pl-heudiconv /incoming /outgoing
-
-    podman run --rm -v /home/my_name/my_project/my_input:/in:z \
-        -v /home/my_name/my_project/my_output/heudiconv_output:/out:z \
-        quay.io/rh-impact/pl-heudiconv pl-heudiconv /in /out
-
-### Example output
 
 
 [subs=+quotes]
@@ -140,6 +136,13 @@ my_output/
 
 7 directories, 2 files
 ....
+
+### Example 2
+
+    podman run --rm -v /home/my_name/my_project/my_input:/in:z \
+        -v /home/my_name/my_project/my_output/heudiconv_output:/out:z \
+        quay.io/rh-impact/pl-heudiconv pl-heudiconv /in /out
+
 
 [subs=+quotes]
 ....
